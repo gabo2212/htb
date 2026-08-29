@@ -1,0 +1,24 @@
+# secrets / credentials
+.htb_token
+vpn/*.ovpn
+flags.log
+notes/FLAGS.md
+
+# local env
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# per-box loot (flags, shells, dumps)
+boxes/*/loot/
+
+# bulky regenerable artifacts
+**/extracted/
+**/*.bin
+**/*.dll
+boxes/*/ffuf-*.json
+
+# editor junk / runtime logs
+notes/.~lock.*
+dashboard/server.log

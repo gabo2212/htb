@@ -1,0 +1,95 @@
+2026-08-29T09:24:46-04:00 ops console online — dashboard at http://localhost:8888 (target: Reactor #900 @ 10.129.106.68)
+2026-08-29T09:25:11-04:00 recon: start reactor (10.129.106.68)
+2026-08-29T09:25:31-04:00 recon: port sweep done on 10.129.106.68 — open: 22,3000
+2026-08-29T09:25:47-04:00 recon: service scan done on 10.129.106.68 (22,3000)
+2026-08-29T09:25:47-04:00 recon: ffuf start http://10.129.106.68:3000
+2026-08-29T09:30:50-04:00 Starting JS/application-layer analysis of Reactor (10.129.106.68:3000)
+2026-08-29T09:30:57-04:00 recon: ffuf done http://10.129.106.68:3000
+2026-08-29T09:30:57-04:00 recon: complete reactor (10.129.106.68) -> /home/gablegoob/Desktop/Skool/keylogtest/htb/boxes/reactor
+2026-08-29T09:31:29-04:00 JS analysis done: Next.js 15.0.3 (CVE-2025-29927 vulnerable range), no secrets in client chunks; probing routes
+2026-08-29T09:32:48-04:00 App-layer enum COMPLETE: only / exists; no middleware (CVE-2025-29927 N/A); Next 15.0.3 + React 19.0.0-rc => React2Shell CVE-2025-55182 is top lead. Loot saved.
+2026-08-29T09:33:36-04:00 Starting Reactor exploitation - CVE-2025-55182 React2Shell
+2026-08-29T09:34:52-04:00 RCE CONFIRMED on Reactor via CVE-2025-55182 - running as uid=999(node)
+2026-08-29T09:36:54-04:00 Cracked engineer MD5 -> reactor1 (from reactor.db users table)
+2026-08-29T09:37:09-04:00 own: user flag for reactor (id 900) REJECTED by HTB
+2026-08-29T09:38:05-04:00 USER FLAG OWNED: 02215790ba967ed71c705bf911627373 (v5 API: 'Reactor user is now owned', success=true)
+2026-08-29T09:42:48-04:00 ROOT FLAG OWNED: 48de3837d84fe54c7cca4bfaf385912f (v5 API success, machine_pwned=true) - privesc via root node --inspect 127.0.0.1:9229
+2026-08-29T09:45:07-04:00 recon: start connected (10.129.245.100)
+2026-08-29T09:46:02-04:00 recon: port sweep done on 10.129.245.100 — open: 22,80,443
+2026-08-29T09:46:21-04:00 recon: service scan done on 10.129.245.100 (22,80,443)
+2026-08-29T09:46:21-04:00 recon: ffuf start http://10.129.245.100:80
+2026-08-29T09:46:54-04:00 Starting app-layer analysis of Connected (10.129.245.100)
+2026-08-29T09:46:55-04:00 recon: ffuf done http://10.129.245.100:80
+2026-08-29T09:46:55-04:00 recon: ffuf start https://10.129.245.100:443
+2026-08-29T09:47:09-04:00 Found vhost connected.htb (301) and cert CN=pbxconnect; HTTPS root 302s to /admin. Mapping app.
+2026-08-29T09:47:28-04:00 recon: ffuf done https://10.129.245.100:443
+2026-08-29T09:47:28-04:00 recon: complete connected (10.129.245.100) -> /home/gablegoob/Desktop/Skool/keylogtest/htb/boxes/connected
+2026-08-29T09:47:45-04:00 CONFIRMED: FreePBX 16.0.40.7 admin GUI at /admin/config.php. Enumerating endpoints + known CVEs.
+2026-08-29T09:50:00-04:00 Re-fuzzing connected.htb vhost (real app)
+2026-08-29T09:50:13-04:00 Connected: app identified — FreePBX Admin at /admin/config.php
+2026-08-29T09:51:10-04:00 Vhost fuzz complete on connected.htb
+2026-08-29T09:54:36-04:00 App-layer analysis complete: FreePBX 16.0.40.7, CVE-2025-57819 attack path identified. notes.md written.
+2026-08-29T09:55:12-04:00 Starting exploit phase for Connected (906) - CVE-2025-57819
+2026-08-29T09:56:31-04:00 SQLi confirmed on /admin/ajax.php brand param - firing cron-injection exploit
+2026-08-29T09:57:06-04:00 RCE as asterisk via CVE-2025-57819 - webshell up, hunting user flag
+2026-08-29T09:57:13-04:00 own: user flag for connected (id 906) accepted
+2026-08-29T10:28:31-04:00 own: root flag for connected (id 906) accepted
+2026-08-29T10:28:38-04:00 Connected ROOT via incron+sysadmin_manager pipe injection: core.logrotate.CONTENTS trigger, params 'x | /var/www/html/.evil.sh' (pipe allowed by param filter). Root flag f428481f7a645562d6937287719c2a44 submitted - machine_pwned:true. BOX COMPLETE.
+2026-08-29T10:31:56-04:00 recon: start cohort (10.129.244.174)
+2026-08-29T10:32:13-04:00 recon: port sweep done on 10.129.244.174 — open: 22,80,443
+2026-08-29T10:32:30-04:00 recon: service scan done on 10.129.244.174 (22,80,443)
+2026-08-29T10:32:30-04:00 recon: ffuf start http://10.129.244.174:80
+2026-08-29T10:33:21-04:00 Cohort: Host-header vhost fuzz + subdomain enum
+2026-08-29T10:33:26-04:00 Starting app-layer analysis of cohort.htb (10.129.244.174)
+2026-08-29T10:34:00-04:00 Cohort: vhost+subdomain fuzz complete
+2026-08-29T10:38:28-04:00 Deobfuscated+decrypted client bundle: app is custom SPA, key endpoint POST /api/validate (URL fetcher w/ preview) - SSRF candidate
+2026-08-29T10:41:07-04:00 App analysis complete: custom Python http.server API, SSRF in /api/validate w/ multiple filter bypasses confirmed
+2026-08-29T10:42:05-04:00 cohort: starting internal port scan via SSRF /api/validate (0.0.0.0 bypass)
+2026-08-29T10:46:01-04:00 cohort: SSRF scan done - open: 80(nginx),443,5000(python API direct),8888(unknown HTML app),22(ssh). probing 8888
+2026-08-29T10:48:44-04:00 cohort: marimo 0.20.4 on 8888 = CVE-2026-39987 (pre-auth WS terminal) but SSRF is GET-only; testing 302->file:// LFI via urllib FileHandler
+2026-08-29T10:54:05-04:00 cohort: found 2nd marimo vuln GHSA-3rj5-4vhf-pm45 - unauth path traversal in serve_static catch-all. testing LFI payloads via SSRF
+2026-08-29T10:59:20-04:00 cohort: /status leaked nginx vhost nb-1be3782a8afd3ad5.cohort.htb -> 127.0.0.1:8888 (marimo). testing direct WS reachability via front nginx
+2026-08-29T11:00:32-04:00 cohort: RCE via CVE-2026-39987 through nginx vhost! shell as marimo (uid=1000). grabbing user flag
+2026-08-29T11:00:41-04:00 own: user flag for cohort (id 933) accepted
+2026-08-29T11:00:45-04:00 challenge: BabyEncryption (228) SOLVED +10pts. Working submit route: POST /api/v4/challenge/own {challenge_id, flag}. Total: 10pts
+2026-08-29T11:01:12-04:00 challenge: Last Dance +10, RSAisEasy +20. Total: 40pts
+2026-08-29T11:01:20-04:00 challenge: RSAisEasy confirmed +20. Total: 40pts
+2026-08-29T11:07:40-04:00 challenge: Low Logic (824) SOLVED +10pts. Total: 50pts
+2026-08-29T11:08:14-04:00 challenge: Obscure (84) SOLVED +20pts. Total: 70pts
+2026-08-29T11:09:03-04:00 challenge: Debugging Interface (207) SOLVED +10pts. Total: 80pts
+2026-08-29T11:09:17-04:00 challenge: Partial Encryption (306) SOLVED +20pts. Total: 100pts
+2026-08-29T11:14:57-04:00 Cohort root captured via CVE-2026-41651 Pack2TheRoot
+2026-08-29T11:14:58-04:00 own: root flag for cohort (id 933) accepted
+2026-08-29T11:16:16-04:00 challenge: Bypass (114) SOLVED +20pts
+2026-08-29T11:16:16-04:00 challenge: CubeMadness1 (302) SOLVED +10pts
+2026-08-29T11:16:41-04:00 recon: start silentium (10.129.106.121)
+2026-08-29T11:16:58-04:00 recon: port sweep done on 10.129.106.121 — open: 22,80
+2026-08-29T11:17:07-04:00 recon: service scan done on 10.129.106.121 (22,80)
+2026-08-29T11:17:07-04:00 recon: ffuf start http://10.129.106.121:80
+2026-08-29T11:17:41-04:00 recon: ffuf done http://10.129.106.121:80
+2026-08-29T11:17:41-04:00 recon: complete silentium (10.129.106.121) -> /home/gablegoob/Desktop/Skool/keylogtest/htb/boxes/silentium
+2026-08-29T11:18:30-04:00 Silentium enum: Flowise 3.0.5 on staging.silentium.htb; ben@silentium.htb valid user; CVE-2025-58434/59528 attack path
+2026-08-29T11:18:57-04:00 challenge: The Needle (220) SOLVED +10pts
+2026-08-29T11:19:08-04:00 Silentium: CVE-2025-58434 forgot-password token leaked for ben@silentium.htb
+2026-08-29T11:24:52-04:00 challenge: Baby Time Capsule (365) SOLVED +10pts. Total: 140pts
+2026-08-29T11:24:57-04:00 challenge: session total 150pts (11 solved). +50 this round: Bypass, CubeMadness1, The Needle, Baby Time Capsule
+2026-08-29T11:28:22-04:00 Silentium: machine reset (Flowise hung from execSync RCE)
+2026-08-29T11:32:04-04:00 own: user flag for silentium (id 867) accepted
+2026-08-29T11:32:04-04:00 Silentium user flag captured via SSH (r04D!!_R4ge from container env)
+2026-08-29T11:38:36-04:00 own: root flag for silentium (id 867) accepted
+2026-08-29T11:38:36-04:00 Silentium owned: user+root flags submitted; chain CVE-58434/59528/Gogs-8110
+2026-08-29T11:40:17-04:00 recon: start enigma (10.129.106.128)
+2026-08-29T11:40:33-04:00 recon: port sweep done on 10.129.106.128 — open: 22,80,110,111,143,993,995,2049,42527,43425,43857,48905,57949
+2026-08-29T11:40:50-04:00 recon: service scan done on 10.129.106.128 (22,80,110,111,143,993,995,2049,42527,43425,43857,48905,57949)
+2026-08-29T11:40:50-04:00 recon: ffuf start http://10.129.106.128:80
+2026-08-29T11:40:50-04:00 recon: ffuf done http://10.129.106.128:80
+2026-08-29T11:40:50-04:00 recon: complete enigma (10.129.106.128) -> /home/gablegoob/Desktop/Skool/keylogtest/htb/boxes/enigma
+2026-08-29T11:45:53-04:00 Enigma (915) recon: NFS /srv/nfs/onboarding (*), static site enigma.htb, Roundcube @ mail001.enigma.htb, Dovecot IMAP/POP3 SSL-only auth
+2026-08-29T11:48:13-04:00 own: user flag for enigma (id 915) accepted
+2026-08-29T11:48:15-04:00 own: root flag for enigma (id 915) accepted
+2026-08-29T11:50:06-04:00 recon: start paperwork (10.129.248.117)
+2026-08-29T11:50:19-04:00 recon: port sweep done on 10.129.248.117 — open: 22,80,1515
+2026-08-29T11:50:30-04:00 recon: service scan done on 10.129.248.117 (22,80,1515)
+2026-08-29T11:50:30-04:00 recon: ffuf start http://10.129.248.117:80
+2026-08-29T11:51:08-04:00 recon: ffuf done http://10.129.248.117:80
+2026-08-29T11:51:08-04:00 recon: complete paperwork (10.129.248.117) -> /home/gablegoob/Desktop/Skool/keylogtest/htb/boxes/paperwork

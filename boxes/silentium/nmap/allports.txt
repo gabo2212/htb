@@ -1,0 +1,9 @@
+# Nmap 7.991 scan initiated Sat Aug 29 11:16:41 2026 as: nmap -p- --min-rate 2000 -T4 -oN nmap/allports.txt 10.129.106.121
+Nmap scan report for 10.129.106.121
+Host is up (0.045s latency).
+Not shown: 65533 closed tcp ports (conn-refused)
+PORT   STATE SERVICE
+22/tcp open  ssh
+80/tcp open  http
+
+# Nmap done at Sat Aug 29 11:16:58 2026 -- 1 IP address (1 host up) scanned in 16.94 seconds

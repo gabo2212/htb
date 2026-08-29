@@ -1,0 +1,22 @@
+# Nmap 7.991 scan initiated Sat Aug 29 11:50:19 2026 as: nmap -sC -sV -p 22,80,1515 -oN nmap/services.txt 10.129.248.117
+Nmap scan report for 10.129.248.117
+Host is up (0.042s latency).
+
+PORT     STATE SERVICE        VERSION
+22/tcp   open  ssh            OpenSSH 10.0p2 Ubuntu 5ubuntu5.4 (Ubuntu Linux; protocol 2.0)
+80/tcp   open  http           nginx 1.28.0 (Ubuntu)
+|_http-title: Did not follow redirect to http://paperwork.htb/
+|_http-server-header: nginx/1.28.0 (Ubuntu)
+1515/tcp open  ifor-protocol?
+| fingerprint-strings: 
+|   TerminalServer, TerminalServerCookie: 
+|_    Archive_Printer is ready and printing.
+1 service unrecognized despite returning data. If you know the service/version, please submit the following fingerprint at https://nmap.org/cgi-bin/submit.cgi?new-service :
+SF-Port1515-TCP:V=7.991%I=7%D=8/29%Time=6A92FFC3%P=x86_64-pc-linux-gnu%r(T
+SF:erminalServerCookie,27,"Archive_Printer\x20is\x20ready\x20and\x20printi
+SF:ng\.\n")%r(TerminalServer,27,"Archive_Printer\x20is\x20ready\x20and\x20
+SF:printing\.\n");
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Sat Aug 29 11:50:30 2026 -- 1 IP address (1 host up) scanned in 10.99 seconds

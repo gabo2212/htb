@@ -1,0 +1,8 @@
+# Nmap 7.991 scan initiated Sat Aug 29 11:43:52 2026 as: /usr/sbin/nmap -p 2049 --script nfs-showmount --script-args nfs.maxlist=10 -oN /home/gablegoob/Desktop/Skool/keylogtest/htb/boxes/enigma/nmap/nfs-showmount.txt 10.129.106.128
+Nmap scan report for 10.129.106.128
+Host is up (0.041s latency).
+
+PORT     STATE SERVICE
+2049/tcp open  nfs
+
+# Nmap done at Sat Aug 29 11:43:52 2026 -- 1 IP address (1 host up) scanned in 0.64 seconds
